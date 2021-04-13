@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
@@ -36,5 +39,24 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+        $this->middleware('guest:admin')->except('logout');
+    }
+
+    public function adminLoginForm() {
+        return view('auth.login', ['url'=>'admin']);
+    }
+
+    public function adminLogin(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'username' => 'required|string',
+            'password' => 'required|min:8',
+        ]);
+
+        $attempt = ['username'=>$request->username, 'password'=>$request->password];
+
+        if (Auth::guard('admin')->attempt($attempt)) {
+            return redirect()->intended('/admin');
+        }
+        return back()->withInput($request->only('username'));
     }
 }

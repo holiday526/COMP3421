@@ -15,3 +15,12 @@ storage/*.key
 Homestead.yaml
 Homestead.json
 /.vagrant
+.idea/codeStyles/codeStyleConfig.xml
+.idea/commandlinetools/Laravel_13_04_2021__15_51.xml
+.idea/commandlinetools/schemas/frameworkDescriptionVersion1.1.4.xsd
+.idea/COMP3421.iml
+.idea/modules.xml
+.idea/php.xml
+.idea/phpunit.xml
+.idea/vcs.xml
+.idea/workspace.xml
