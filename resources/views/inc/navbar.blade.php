@@ -7,8 +7,9 @@
 
         <b-collapse id="nav-collapse" is-nav>
             <b-navbar-nav>
+                <b-nav-item href="/food_menu" class="mx-2"><i class="fas fa-utensils mr-1"></i> Menu</b-nav-item>
                 <b-nav-form>
-                    <b-input-group>
+                    <b-input-group class="mx-2">
                         <b-form-input placeholder="Search food..."></b-form-input>
                         <b-input-group-append>
                             <b-button variant="outline-light"><i class="fas fa-search"></i></b-button>
@@ -19,7 +20,6 @@
 
             <!-- Right aligned nav items -->
             <b-navbar-nav class="ml-auto">
-
                 @auth
                 <b-nav-item href="#"><i class="fas fa-shopping-cart"></i> Cart</b-nav-item>
                 <b-nav-item-dropdown right>

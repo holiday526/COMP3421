@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-100">
 
 <head>
 
@@ -8,21 +8,20 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>{{ env('APP_NAME') }}</title>
+    <title>{{ env('APP_NAME', 'Burger Queen') }}</title>
 
     @include('inc.stylesheets')
 
 </head>
 
-<body>
-    <div id="app">
+<body class="h-100">
+    <div id="app" class="wrapper">
 
         @include('inc.navbar')
 
         @yield('content')
-
-        @include('inc.footer')
     </div>
+    @include('inc.footer')
 
     @include('inc.script')
 </body>

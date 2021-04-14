@@ -21,7 +21,20 @@
     -webkit-animation: moving-banner 12.5s linear infinite;
     animation: moving-banner 12.5s linear infinite;
 }
-/* Move it (define the animation) */
+
+.sticky-footer {
+    flex-shrink: 0;
+}
+
+.wrapper {
+    flex: 1 0 auto;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
 @-moz-keyframes moving-banner {
     0%   { -moz-transform: translateX(100%); }
     100% { -moz-transform: translateX(-100%); }

@@ -17,11 +17,21 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/food_menu', 'WEB\FoodsController@foodIndex');
+
+
+/**
+ * admin page
+ */
 Route::get('/login/admin', 'Auth\LoginController@adminLoginForm')->name('admin-login');
-//Route::get('/register/admin', 'Auth\RegisterController@adminRegisterForm');
+Route::get('/register/admin', 'Auth\RegisterController@adminRegisterForm');
 
 Route::post('/login/admin', 'Auth\LoginController@adminLogin');
-//Route::post('/register/admin', 'Auth\RegisterController@createAdmin');
+Route::post('/register/admin', 'Auth\RegisterController@createAdmin');
 
-// Route::view('/home', 'home')->middleware('auth');
+Route::get('/admin/food', 'WEB\admin\FoodsController@foodCreate');
+
+Route::get('/admin/food_type', 'WEB\admin\FoodsController@foodTypesCreate');
+Route::post('/admin/food_type', 'WEB\admin\FoodsController@foodTypesStore');
+
 Route::view('/admin', 'admin')->middleware('admin-auth');
