@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <b-container>
         <span>
             <a href="/food_menu" :class="{ 'text-info': hasFoodType, 'disabled': !hasFoodType }">All food</a>
             <span v-if="foodType"> > <span>{{ foodType }}</span></span>
@@ -12,15 +12,15 @@
                 <option value="3">3</option>
             </select>
         </div>
-        <b-card-group class="my-4" deck>
-            <food-card></food-card>
-            <food-card></food-card>
-            <food-card></food-card>
+        <b-card-group class="my-4 mx-auto" deck>
+            <food-card :logged-in="true"></food-card>
+            <food-card :logged-in="false"></food-card>
+            <food-card :logged-in="false"></food-card>
         </b-card-group>
-        <b-card-group class="my-4" deck>
-            <food-card></food-card>
-            <food-card></food-card>
-            <food-card></food-card>
+        <b-card-group class="my-4 mx-auto" deck>
+            <food-card :logged-in="false"></food-card>
+            <food-card :logged-in="false"></food-card>
+            <food-card :logged-in="false"></food-card>
         </b-card-group>
         <div class="mt-2">
             <b-pagination
@@ -31,7 +31,7 @@
             >
             </b-pagination>
         </div>
-    </div>
+    </b-container>
 </template>
 
 <script>

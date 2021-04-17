@@ -30,8 +30,12 @@ Route::post('/login/admin', 'Auth\LoginController@adminLogin');
 Route::post('/register/admin', 'Auth\RegisterController@createAdmin');
 
 Route::get('/admin/food', 'WEB\admin\FoodsController@foodCreate');
+Route::post('/admin/food', 'WEB\admin\FoodsController@foodStore');
 
 Route::get('/admin/food_type', 'WEB\admin\FoodsController@foodTypesCreate');
 Route::post('/admin/food_type', 'WEB\admin\FoodsController@foodTypesStore');
+
+Route::get('/admin/food_category', "WEB\admin\FoodsController@foodCategoryCreate");
+Route::post('/admin/food_category', "WEB\admin\FoodsController@foodCategoryStore");
 
 Route::view('/admin', 'admin')->middleware('admin-auth');

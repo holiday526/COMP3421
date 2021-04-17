@@ -4,6 +4,7 @@
 <div class="container py-4">
     @include('admin.inc.message')
 
+    <h4>Add food type</h4>
     <form method="POST" action="/admin/food_type">
         @csrf
         <div class="form-group">
