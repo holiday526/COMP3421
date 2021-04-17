@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\WEB\admin;
 
 use App\FoodCategory;
+use App\FoodImage;
 use App\FoodType;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Food;
+use Intervention\Image\Facades\Image;
 
 class FoodsController extends Controller
 {
@@ -27,7 +30,8 @@ class FoodsController extends Controller
             'description' => 'required|string',
             'price' => 'required|numeric|min:1',
             'type_id' => 'required|exists:App\FoodType,id',
-            'category_id' => 'nullable|exists:App\FoodCategory,id'
+            'category_id' => 'nullable|exists:App\FoodCategory,id',
+            'food_image' => 'image|required|max:10000'
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -36,12 +40,26 @@ class FoodsController extends Controller
             return redirect()->back()->withErrors($validator);
         }
 
-        Food::create([
+        $imagePath = request('food_image')->store("uploads/food", 'public');
+        $image = Image::make(public_path("storage/{$imagePath}"))->resize(600, null, function ($constraint) {
+            $constraint->aspectRatio();
+        });
+        $image->save(public_path("storage/{$imagePath}"), 100);
+
+        $image->save();
+
+        $food = Food::create([
             'name' => $request->name,
             'description' => $request->description,
             'price' => $request->price,
             'type_id' => $request->type_id,
             'category_id' => empty($request->category_id) ? null : $request->category_id
+        ]);
+
+        FoodImage::create([
+            'food_id' => $food->id,
+            'food_image_location' => "/storage/".$imagePath,
+            'index_photo' => true
         ]);
 
         return redirect()->back()->with(

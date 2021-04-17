@@ -54,6 +54,15 @@
                 >
                 </b-form-select>
             </b-form-group>
+            <div class="form-group">
+                <label for="foodImageInput">Food Image</label>
+                <div class="input-group mb-3">
+                    <div class="custom-file">
+                        <input type="file" accept="image/*" class="custom-file-input" id="foodImageInput" @change="previewImage" name="food_image">
+                        <label class="custom-file-label" for="foodImageInput" aria-describedby="foodImageInputAddOn">Choose file</label>
+                    </div>
+                </div>
+            </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </b-col>
         <b-col sm="3">
@@ -64,6 +73,7 @@
                 :food-price="foodPrice"
                 :food-type="foodTypeString"
                 :food-category="selectedFoodCategoryFormatting"
+                :food-image="preview"
             >
             </food-card>
         </b-col>
@@ -93,7 +103,9 @@ export default {
             selectedFoodType: {},
             foodName: "",
             foodDescription: "",
-            foodPrice: 0.0
+            foodPrice: 0.0,
+            preview: null,
+            image: null,
         }
     },
     computed: {
@@ -116,7 +128,17 @@ export default {
         }
     },
     methods: {
-
+        previewImage(event) {
+            let input = event.target;
+            if (input.files) {
+                let reader = new FileReader();
+                reader.onload = (e) => {
+                    this.preview = e.target.result;
+                }
+                this.image = input.files[0];
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
     },
     watch: {
         selectedFoodTypeId() {

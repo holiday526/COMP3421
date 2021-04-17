@@ -3,6 +3,7 @@
 @section('content')
 <div class="container py-4">
 
+    {{-- {{ dd($foods) }} --}}
     <b-form-group
         id="category-listgroup"
         label-cols-sm="3"
@@ -21,8 +22,18 @@
         </b-list-group>
     </b-form-group>
 
+    
     <food-list
-        :foods="['1','2','3']"
+        @auth
+        :logged-in="true"
+        @else
+        :logged-in="false"
+        @endauth
+        :total-number="{{ $foods->total() }}"
+        :foods="{{ json_encode($foods->items()) }}"
+        :pages="{{ $foods->lastPage() }}"
+        :current-page="{{ $foods->currentPage() }}"
+        :per-page="{{ $foods->perPage() }}"
     >
     </food-list>
 </div>

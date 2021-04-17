@@ -5,7 +5,7 @@
         @include('admin.inc.message')
 
         <h4>Add Food</h4>
-        <form action="/admin/food" method="post">
+        <form action="/admin/food" method="post" enctype="multipart/form-data">
             @csrf
             <food-create-form
                 :food-types="{{$food_types}}"

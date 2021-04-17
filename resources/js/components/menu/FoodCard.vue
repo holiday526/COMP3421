@@ -1,7 +1,7 @@
 <template>
     <b-card
         :title="`Item: ${foodName}`"
-        img-src="https://picsum.photos/600/300/?image=25"
+        :img-src="foodCardImage"
         :img-alt="foodName"
         img-top
         tag="article"
@@ -18,7 +18,7 @@
             {{ `Type: ${foodType}` }}
         </b-card-text>
         <b-card-text>
-            {{ `Category: ${foodCategory}` }}
+            {{ `Category: ${foodCategoryFormatting}` }}
         </b-card-text>
 
         <b-button v-if="!loggedIn" href="#" block variant="warning">Login for ordering</b-button>
@@ -45,7 +45,6 @@ export default {
         },
         foodPrice: {
             default: 0.0,
-            type: Number
         },
         foodType: {
             type: String
@@ -53,11 +52,20 @@ export default {
         foodCategory: {
             type: String,
             default: "N.A."
+        },
+        foodImage: {
+
         }
     },
     computed: {
         foodPriceFormatting() {
             return `$ ${Number(this.foodPrice).toLocaleString()}`;
+        },
+        foodCardImage() {
+            return (this.foodImage == null || this.foodImage === "") ? `${window.location.origin}/img/placeholder/burger.svg` : `${this.foodImage}`;
+        },
+        foodCategoryFormatting() {
+            return this.foodType !== "Burger" ? "N.A." : this.foodCategory;
         }
     }
 }
