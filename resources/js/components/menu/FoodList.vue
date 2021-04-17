@@ -1,42 +1,72 @@
 <template>
     <b-container>
+        <b-form-group
+            id="category-listgroup"
+            label-cols-sm="3"
+            label-cols-lg="3"
+            label="Food Category"
+            label-align="center"
+            content-cols-sm
+            content-cols-lg="9"
+            class="mt-auto"
+        >
+            <template #label><div class="w-100 h-100 m-auto p-3">Food Type</div></template>
+            <b-list-group id="category-listgroup" horizontal class="w-100 my-2">
+                <b-list-group-item
+                    v-for="foodType in foodTypes" 
+                    :key="foodType.id"
+                    :href="`/food_menu?foodType=${foodType.name}`" 
+                    :class="{'w-100': true, 'list-group-item-info': (urlParam.foodType == foodType.name)}"
+                >
+                    {{ foodType.name }}
+                </b-list-group-item>
+            </b-list-group>
+        </b-form-group>
+        
         <span>
             <a href="/food_menu" :class="{ 'text-info': hasFoodType, 'disabled': !hasFoodType }">All food</a>
             <span v-if="foodType"> > <span>{{ foodType }}</span></span>
         </span>
         <div class="float-right">
-            Total food: <span class="text-info mr-4">{{ totalNumber }}</span>
+            Paginator: 
+            <select name="paginator" id="paginator" onchange="location = this.value" class="mr-4">
+                <option v-for="index in paginationGenerator" :key="index" :value="`${locationOnChange}&pagination=${index}`" :selected="index==urlParam.pagination">{{ index }}</option>
+            </select>
             Page:
             <select name="page_number" id="pageNumber" onchange="location = this.value">
                 <option v-for="index in pagesFormatting" :key="index" :value="`${locationOnChange}&page=${index}`" :selected="index==currentPage">{{ index }}</option>
             </select>
-            <!-- <b-dropdown id="pageDropdown">
-                <b-dropdown-item v-for="index in pagesFormatting" :key="index">{{ index }}</b-dropdown-item>
-            </b-dropdown> -->
         </div>
-        <b-card-group class="my-4 mx-auto" deck v-for="(chunk, index) in foodsChunk" :key="index">
-            <food-card 
-                :logged-in="loggedIn" 
-                v-for="food in chunk"
-                :key="food.id"
-                :food-name="food.food_name"
-                :food-description="food.food_description"
-                :food-price="food.food_price"
-                :food-image="food.food_image_location"
-                :food-type="food.food_type_name"
-                :food-category="food.food_category_name"
-            >
-            </food-card>
-        </b-card-group>
-        <div class="mt-2">
-            <b-pagination
-                v-model="currentPage"
-                :total-rows="totalNumber"
-                align="center"
-                :per-page="perPage"
-            >
-            </b-pagination>
+
+        <div v-if="!emptyFoodList">
+            <b-card-group class="my-4 mx-auto" deck v-for="(chunk, index) in foodsChunk" :key="index">
+                <food-card 
+                    :logged-in="loggedIn" 
+                    v-for="food in chunk"
+                    :key="food.id"
+                    :food-name="food.food_name"
+                    :food-description="food.food_description"
+                    :food-price="food.food_price"
+                    :food-image="food.food_image_location"
+                    :food-type="food.food_type_name"
+                    :food-category="food.food_category_name"
+                >
+                </food-card>
+            </b-card-group>
+            <div class="mt-2">
+                <b-pagination
+                    v-model="currentPage"
+                    :total-rows="totalNumber"
+                    align="center"
+                    :per-page="perPage"
+                >
+                </b-pagination>
+            </div>
         </div>
+        <div v-else class="pt-3">
+            <h3>No food is available</h3>
+        </div>
+        
     </b-container>
 </template>
 
@@ -54,6 +84,7 @@ export default {
             emptyFoodList: true,
             foodType: "",
             urlParam: {},
+            pagination: null,
         }
     },
     props: {
@@ -74,6 +105,9 @@ export default {
         },
         perPage: {
             required: true
+        },
+        foodTypes: {
+
         }
     },
     methods: {
@@ -120,6 +154,13 @@ export default {
                 }
             })
             return location;
+        },
+        paginationGenerator() {
+            let arr = [];
+            for (let i = 1; i <= 4; i++) {
+                arr[i-1] = i*3;
+            }
+            return arr;
         }
     },
     watch: {
@@ -128,7 +169,7 @@ export default {
         },
         currentPage() {
             window.location.href = window.location.origin + window.location.pathname + this.locationOnChange + `&page=${this.currentPage}`
-        }
+        },
     },
     created() {
         this.checkEmptyFood();

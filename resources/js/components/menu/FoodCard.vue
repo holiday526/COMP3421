@@ -4,6 +4,7 @@
         :img-src="foodCardImage"
         :img-alt="foodName"
         img-top
+        img-height="200"
         tag="article"
         style="max-width: 20rem;"
         class="mb-2"
