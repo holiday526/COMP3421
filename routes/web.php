@@ -39,3 +39,10 @@ Route::get('/admin/food_category', "WEB\admin\FoodsController@foodCategoryCreate
 Route::post('/admin/food_category', "WEB\admin\FoodsController@foodCategoryStore");
 
 Route::view('/admin', 'admin')->middleware('admin-auth');
+
+Route::middleware(['auth'])->group(function() {
+    Route::get('/cart/list', 'WEB\CartsController@cartListIndex');
+    Route::post('/cart/modify', 'WEB\CartsController@cartModify');
+    Route::get('/cart', 'WEB\CartsController@cartIndex');
+    Route::post('/cart', 'WEB\CartsController@cartStore');
+});

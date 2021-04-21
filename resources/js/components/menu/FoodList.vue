@@ -13,22 +13,22 @@
             <template #label><div class="w-100 h-100 m-auto p-3">Food Type</div></template>
             <b-list-group id="category-listgroup" horizontal class="w-100 my-2">
                 <b-list-group-item
-                    v-for="foodType in foodTypes" 
+                    v-for="foodType in foodTypes"
                     :key="foodType.id"
-                    :href="`/food_menu?foodType=${foodType.name}`" 
+                    :href="`/food_menu?foodType=${foodType.name}`"
                     :class="{'w-100': true, 'list-group-item-info': (urlParam.foodType == foodType.name)}"
                 >
                     {{ foodType.name }}
                 </b-list-group-item>
             </b-list-group>
         </b-form-group>
-        
+
         <span>
-            <a href="/food_menu" :class="{ 'text-info': hasFoodType, 'disabled': !hasFoodType }">All food</a>
+            <a href="/food_menu" :class="{ 'text-info': true, 'disabled': !hasFoodType }" >All food</a>
             <span v-if="foodType"> > <span>{{ foodType }}</span></span>
         </span>
         <div class="float-right">
-            Paginator: 
+            Paginator:
             <select name="paginator" id="paginator" onchange="location = this.value" class="mr-4">
                 <option v-for="index in paginationGenerator" :key="index" :value="`${locationOnChange}&pagination=${index}`" :selected="index==urlParam.pagination">{{ index }}</option>
             </select>
@@ -40,10 +40,11 @@
 
         <div v-if="!emptyFoodList">
             <b-card-group class="my-4 mx-auto" deck v-for="(chunk, index) in foodsChunk" :key="index">
-                <food-card 
-                    :logged-in="loggedIn" 
+                <food-card
+                    :logged-in="loggedIn"
                     v-for="food in chunk"
                     :key="food.id"
+                    :food-id="food.food_id"
                     :food-name="food.food_name"
                     :food-description="food.food_description"
                     :food-price="food.food_price"
@@ -66,7 +67,7 @@
         <div v-else class="pt-3">
             <h3>No food is available</h3>
         </div>
-        
+
     </b-container>
 </template>
 
@@ -128,7 +129,7 @@ export default {
     },
     computed: {
         hasFoodType() {
-            return this.foodType !== "";
+            return this.urlParam.foodType !== undefined;
         },
         foodsChunk() {
             if (this.foods !== null) {

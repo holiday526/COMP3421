@@ -21,12 +21,13 @@
             <!-- Right aligned nav items -->
             <b-navbar-nav class="ml-auto">
                 @auth
-                <b-nav-item href="#"><i class="fas fa-shopping-cart"></i> Cart</b-nav-item>
+                <b-nav-item href="/cart"><i class="fas fa-shopping-cart"></i> Cart</b-nav-item>
                 <b-nav-item-dropdown right>
                     <template #button-content>
                         <span class="ml-2"><i class="fas fa-user"></i> {{ "Hi, ".Auth::user()->name }}</span>
                     </template>
                     <b-dropdown-item href="#"><i class="fas fa-id-badge mr-1"></i> Profile</b-dropdown-item>
+                    <b-dropdown-item href="#"><i class="fas fa-receipt mr-1"></i> Your orders</b-dropdown-item>
                     <b-dropdown-item href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                         <i class="fas fa-sign-out-alt"></i> {{ __('Logout') }}
