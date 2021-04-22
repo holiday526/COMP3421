@@ -1,12 +1,19 @@
 <template>
     <div>
         <div v-if="emptyCart">
-            <b-card bg-variant="dark" text-variant="white">
+            <b-card bg-variant="dark" text-variant="white" class="my-4">
                 <b-card-title style="font-size: 2.5rem">No food in cart</b-card-title>
                 <b-card-text style="font-size: 1.5rem">
                     Back to menu to order food
                 </b-card-text>
                 <b-button href="/food_menu" variant="info">Food menu</b-button>
+            </b-card>
+            <b-card bg-variant="info" text-variant="white" class="my-4" :img-src="`/img/placeholder/burger.svg`" img-right img-height="200">
+                <b-card-title style="font-size: 2.5rem">There are orders</b-card-title>
+                <b-card-text style="font-size: 1.5rem">
+                    Proceed to order page
+                </b-card-text>
+                <b-button href="/order" variant="dark">Order Page</b-button>
             </b-card>
         </div>
         <div v-else>
@@ -32,10 +39,28 @@
                 </template>
             </b-table>
             <b-card align="right" style="border: none">
-                <b-card-text style="font-size: 1.5rem">Total: <span class="text-info">{{ foodPriceFormatting(total) }}</span></b-card-text>
+                <b-card-text style="font-size: 1.5rem">Total: $<span class="text-info">{{ foodPriceFormatting(total) }}</span></b-card-text>
                 <div style="display: inline-block" class="pr-2"><b-button variant="info" href="/food_menu">return to menu</b-button></div>
-                <b-button variant="success">checkout</b-button>
+                <b-button @click="checkOutModal()" variant="success">checkout</b-button>
             </b-card>
+
+            <b-modal id="bv-modal-checkout" hide-footer>
+                <template #modal-title>
+                    Proceed to checkout
+                </template>
+                <div class="d-block text-center">
+                    <h5 class="pb-2">Are you sure want to checkout?</h5>
+                    <h3>Total need to pay $<span class="text-info">{{foodPriceFormatting(total)}}</span></h3>
+                </div>
+                <b-row>
+                    <b-col>
+                        <b-button class="mt-3" block @click="$bvModal.hide('bv-modal-checkout')" variant="danger">Cancel</b-button>
+                    </b-col>
+                    <b-col>
+                        <b-button block class="mt-3" @click="checkOut()" variant="success">Checkout</b-button>
+                    </b-col>
+                </b-row>
+            </b-modal>
         </div>
     </div>
 </template>
@@ -56,7 +81,8 @@ export default {
                 'subtotal'
             ],
             cartItems: [],
-            total: 0
+            total: 0,
+            foodOrders: 0,
         }
     },
     methods: {
@@ -100,6 +126,41 @@ export default {
         foodPriceFormatting(price) {
             return `${Number(price).toLocaleString()}`;
         },
+        checkOutModal() {
+            this.$bvModal.show('bv-modal-checkout');
+        },
+        checkOut() {
+            axios.post('/order')
+            .then(function(response){
+                this.redirectToFoodOrder()
+                console.log('success');
+            }.bind(this))
+            .catch(function(error){
+                console.log(`Checkout ${error}`);
+            });
+        },
+        toast(variant, message, toaster = 'b-toaster-bottom-right', append = true) {
+            this.$bvToast.toast(message, {
+                title: `Alert`,
+                toaster: toaster,
+                solid: true,
+                appendToast: append,
+                variant: variant
+            })
+        },
+        redirectToFoodOrder() {
+            this.toast('success', 'Redirect to food order page in 2 second');
+            setTimeout(()=>{window.location.href = `${window.location.origin}/order`}, 2000);
+        },
+        checkFoodOrders() {
+            axios.get('/order/count')
+                .then(function (response){
+                    this.foodOrders = response.data.order_count;
+                }.bind(this))
+                .catch(function (error){
+                    this.foodOrders = 0;
+                });
+        }
     },
     computed: {
         emptyCart() {
@@ -108,6 +169,7 @@ export default {
     },
     mounted() {
         this.getCarts();
+        this.checkFoodOrders();
     },
     watch: {
         cartItems() {

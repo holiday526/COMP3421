@@ -25,7 +25,6 @@
                 id="foodTypeSelectGroup"
                 label="Food Type"
                 label-for="foodTypeSelect"
-
             >
                 <b-form-select
                     id="foodTypeSelect"
@@ -42,7 +41,6 @@
                 id="foodCategorySelectGroup"
                 label="Food Category"
                 label-for="foodCategorySelect"
-                name="category_id"
             >
                 <b-form-select
                     id="foodCategorySelect"
@@ -50,6 +48,7 @@
                     :options="foodCategories"
                     text-field="name"
                     value-field="id"
+                    name="category_id"
                     :disabled="foodCategoryDisabled"
                 >
                 </b-form-select>

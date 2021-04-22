@@ -177,7 +177,6 @@ export default {
         this.getFoodType();
         this.setUrlParams();
     }
-
 }
 </script>
 

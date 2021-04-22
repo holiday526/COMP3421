@@ -32,6 +32,9 @@ Vue.use(IconsPlugin)
 import FoodList from "./components/menu/FoodList";
 import FoodCreateForm from "./components/admin/food/FoodCreateForm";
 import CartList from "./components/cart/CartList";
+import OrderCard from "./components/order/OrderCard";
+import FoodEditTable from "./components/admin/food/FoodEditTable";
+import FoodEditForm from "./components/admin/food/FoodEditForm";
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -44,6 +47,9 @@ const app = new Vue({
     components: {
         FoodList,
         FoodCreateForm,
-        CartList
+        CartList,
+        OrderCard,
+        FoodEditTable,
+        FoodEditForm
     }
 });

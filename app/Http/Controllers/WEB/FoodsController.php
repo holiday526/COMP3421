@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\WEB;
 
+use App\Food;
 use App\FoodType;
 use App\Http\Controllers\Controller;
 use App\Rules\FoodTypeCheckRule;
@@ -36,7 +37,8 @@ class FoodsController extends Controller
                                 'foods.created_at as food_created_at', 'foods.updated_at as food_updated_at', 'foods.deleted_at as food_deleted_at',
                                 'food_types.name as food_type_name', 'food_categories.name as food_category_name', 'food_categories.description as food_category_description',
                                 'food_types.description as food_type_description', 'food_images.food_image_location as food_image_location'
-                            );
+                            )
+                            ->where('foods.deleted_at', '=', null);
         if (isset($request->foodType)) {
             $foods_collection->where('food_types.name', $request->foodType);
         }
@@ -48,5 +50,21 @@ class FoodsController extends Controller
         }
 
         return view('menu.index', ['food_types'=>$food_types, 'foods'=>$foods_collection->paginate($paginate)]);
+    }
+
+    public function foodShow(Request $request) {
+        $rules = [
+            'food_id' => 'required|exists:App\Food,id'
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return response(['message'=>$validator->errors()->getMessages()], 400);
+        }
+
+        $food = Food::find($request->food_id);
+
+        return response(['food'=>$food], 200);
     }
 }

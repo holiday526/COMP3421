@@ -10,18 +10,25 @@
 
     <title>{{ env('APP_NAME').' Admin Page' }}</title>
 
+    <meta name="_token" content="{!! csrf_token() !!}"/>
+
     @include('inc.stylesheets')
 
 </head>
 
 <body class="h-100">
-<div id="app" class="wrapper">
+    <div id="app" class="wrapper">
+        @include('admin.inc.navbar')
+        @yield('content')
+    </div>
 
-    @yield('content')
-</div>
-@include('inc.footer')
+    <b-footer class="py-4 bg-dark sticky-footer">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Burger Queen<sup>Reborn</sup> 2021</p>
+        </div>
+    </b-footer>
 
-@include('inc.script')
+    @include('inc.script')
 </body>
 
 </html>

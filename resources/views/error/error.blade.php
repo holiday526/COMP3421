@@ -47,7 +47,11 @@
 <body data-new-gr-c-s-check-loaded="14.1006.0" data-gr-ext-installed="">
 <div class="flex-center position-ref full-height">
     <div class="code">{{$code}}</div>
+    @empty($url)
     <div class="message" style="padding: 10px;"><a href="/" class="btn btn-primary">Back to main page</a></div>
+    @else
+        <div class="message" style="padding: 10px;"><a href="{{$url}}" class="btn btn-secondary">{{ $button_message }}</a></div>
+    @endempty
 </div>
 </body>
 </html>
