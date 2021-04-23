@@ -45,6 +45,10 @@ Route::middleware(['admin-auth'])->group(function() {
 
     Route::get('/admin/food_category', "WEB\admin\FoodsController@foodCategoryCreate");
     Route::post('/admin/food_category', "WEB\admin\FoodsController@foodCategoryStore");
+
+    Route::post('/admin/order/item/update', "WEB\admin\FoodOrdersController@foodOrderItemUpdate");
+    Route::get('/admin/order/list', "WEB\admin\FoodOrdersController@foodOrderList");
+    Route::get('/admin/order', "WEB\admin\FoodOrdersController@foodOrderIndex");
 });
 
 Route::get('/food', 'WEB\FoodsController@foodShow');
