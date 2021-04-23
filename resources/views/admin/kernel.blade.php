@@ -10,8 +10,6 @@
 
     <title>{{ env('APP_NAME').' Admin Page' }}</title>
 
-    <meta name="_token" content="{!! csrf_token() !!}"/>
-
     @include('inc.stylesheets')
 
 </head>
@@ -20,6 +18,7 @@
     <div id="app" class="wrapper">
         @include('admin.inc.navbar')
         @yield('content')
+        <new-order-toast></new-order-toast>
     </div>
 
     <b-footer class="py-4 bg-dark sticky-footer">

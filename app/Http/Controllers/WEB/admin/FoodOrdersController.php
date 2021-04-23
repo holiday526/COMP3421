@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\WEB\admin;
 
+use App\Events\ItemProcessed;
+use App\Events\NotifyUser;
 use App\FoodOrder;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -52,7 +54,22 @@ class FoodOrdersController extends Controller
             $order = FoodOrder::where('food_id', $request->food_id)->where('order_id', $request->order_id)->update(['processed'=>true]);
         }
 
+        event(new ItemProcessed($request->order_id));
+
         return response(['item'=>$order], 202);
 
+    }
+
+    public function foodOrderNotifyUsers(Request $request) {
+        $rules = [
+            'user_uid' => 'exists:App\User,uid|required',
+            'order_id' => 'required|exists:App\FoodOrder,order_id'
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return response($validator->errors()->getMessages());
+        }
+        event(new NotifyUser($request->user_uid, $request->order_id));
+        return response(['status'=>'success'], 200);
     }
 }

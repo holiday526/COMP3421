@@ -62,11 +62,18 @@ export default {
         },
         foodPriceFormatting(price) {
             return `${Number(price).toLocaleString()}`;
+        },
+        listenChannel() {
+            Echo.channel(`food-item-${this.orderId}`)
+                .listen('.food-item-processed', (e) => {
+                    this.orderFetch();
+                })
         }
     },
     mounted() {
         this.orderFetch();
         this.orderTotalPrice();
+        this.listenChannel();
     },
     watch: {
         order() {

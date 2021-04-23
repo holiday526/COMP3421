@@ -17,12 +17,14 @@
                     </b-list-group>
                 </b-col>
                 <b-col>
-                    <b-button v-if="doneVariant(order) === 'success'" class="ml-2" variant="warning">notify user</b-button>
+                    <div v-if="doneVariant(order) === 'success'">
+                    <b-button class="ml-2" variant="warning" @click="notifyUser(order[0].order_id, order[0].user_uid)">notify user</b-button>
+                    <b-button class="ml-2" variant="success">done?</b-button>
+                    </div>
                     <b-card-text v-else class="ml-2 text-danger">Not yet done</b-card-text>
                 </b-col>
             </b-row>
         </b-card>
-        <b-button @click="ordersFetch">Fetch</b-button>
     </div>
 </template>
 
@@ -104,6 +106,30 @@ export default {
             for (let i = 0; i < this.transformedOrders.length; i++) {
                 this.reRender[i] = 0;
             }
+        },
+        listenChannel() {
+            Echo.channel('order-create')
+                .listen('.user-order-create', (e) => {
+                    console.log(e)
+                    this.ordersFetch();
+                })
+        },
+        notifyUser(orderId, userUid) {
+            axios.post('/admin/order/notify', {
+                'user_uid': userUid,
+                'order_id': orderId
+            },
+            {
+                headers: {
+                    'X-CSRF-Token': $('meta[name=_token]').attr('content')
+                }
+            })
+            .then(function (response){
+                console.log(`notifyUser ${response}`)
+            })
+            .catch(function (error){
+                console.log(`notifyUser ${error}`)
+            })
         }
     },
     computed: {
@@ -111,6 +137,9 @@ export default {
     },
     mounted() {
         this.ordersFetch();
+    },
+    created() {
+        this.listenChannel();
     }
 }
 </script>

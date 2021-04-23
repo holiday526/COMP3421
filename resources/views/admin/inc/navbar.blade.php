@@ -15,7 +15,6 @@
                     <b-dropdown-item href="/admin/food">Create</b-dropdown-item>
                 </b-nav-item-dropdown>
                 <b-nav-item href="/admin/order">Order</b-nav-item>
-                <b-nav-item href="#" disabled>Disabled</b-nav-item>
             </b-navbar-nav>
 
             <!-- Right aligned nav items -->

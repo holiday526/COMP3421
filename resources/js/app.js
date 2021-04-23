@@ -36,6 +36,8 @@ import OrderCard from "./components/order/OrderCard";
 import FoodEditTable from "./components/admin/food/FoodEditTable";
 import FoodEditForm from "./components/admin/food/FoodEditForm";
 import OrderList from "./components/admin/order/OrderList";
+import NewOrderToast from "./components/admin/inc/NewOrderToast";
+import OrderUpdate from "./components/inc/OrderUpdate";
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -52,6 +54,8 @@ const app = new Vue({
         OrderCard,
         FoodEditTable,
         FoodEditForm,
-        OrderList
+        OrderList,
+        NewOrderToast,
+        OrderUpdate
     }
 });

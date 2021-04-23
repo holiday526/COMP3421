@@ -48,6 +48,7 @@ Route::middleware(['admin-auth'])->group(function() {
 
     Route::post('/admin/order/item/update', "WEB\admin\FoodOrdersController@foodOrderItemUpdate");
     Route::get('/admin/order/list', "WEB\admin\FoodOrdersController@foodOrderList");
+    Route::post('/admin/order/notify', "WEB\admin\FoodOrdersController@foodOrderNotifyUsers");
     Route::get('/admin/order', "WEB\admin\FoodOrdersController@foodOrderIndex");
 });
 

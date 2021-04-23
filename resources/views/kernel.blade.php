@@ -18,8 +18,13 @@
     <div id="app" class="wrapper">
 
         @include('inc.navbar')
-
         @yield('content')
+        @auth
+{{--            for notification --}}
+            <order-update
+                :user-uid="'{{ \Illuminate\Support\Facades\Auth::user()->uid }}'"
+            ></order-update>
+        @endauth
     </div>
     @include('inc.footer')
 

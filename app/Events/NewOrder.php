@@ -11,7 +11,7 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 
-class NewOrder implements ShouldBroadcastNow
+class NewOrder implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -35,7 +35,7 @@ class NewOrder implements ShouldBroadcastNow
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('order-create');
+        return new Channel('order-create');
     }
 
     public function broadcastAs() {
