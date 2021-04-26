@@ -16,6 +16,7 @@
                 </b-nav-item-dropdown>
                 <b-nav-item href="/admin/order">Order</b-nav-item>
                 <b-nav-item href="/admin/food_type">Add Food Type</b-nav-item>
+                <b-nav-item href="/admin/food_category">Add Burger Category</b-nav-item>
             </b-navbar-nav>
 
             <!-- Right aligned nav items -->
