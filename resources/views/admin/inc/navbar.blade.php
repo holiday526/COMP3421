@@ -25,7 +25,6 @@
                     <template #button-content>
                         <span class="ml-2"><i class="fas fa-user"></i> {{ "Hi, ".Auth::guard('admin')->user()->name }}</span>
                     </template>
-                    <b-dropdown-item href="#">Profile</b-dropdown-item>
                     <b-dropdown-item href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                         <i class="fas fa-sign-out-alt"></i> {{ __('Logout') }}

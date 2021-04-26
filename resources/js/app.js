@@ -38,6 +38,8 @@ import FoodEditForm from "./components/admin/food/FoodEditForm";
 import OrderList from "./components/admin/order/OrderList";
 import NewOrderToast from "./components/admin/inc/NewOrderToast";
 import OrderUpdate from "./components/inc/OrderUpdate";
+import SearchList from "./components/menu/SearchList";
+import SearchBar from "./components/nav/SearchBar";
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -56,6 +58,8 @@ const app = new Vue({
         FoodEditForm,
         OrderList,
         NewOrderToast,
-        OrderUpdate
+        OrderUpdate,
+        SearchList,
+        SearchBar
     }
 });

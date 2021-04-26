@@ -18,6 +18,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/food_menu', 'WEB\FoodsController@foodIndex');
+Route::get('/food', 'WEB\FoodsController@foodShow');
+Route::get('/food_search', 'WEB\FoodsController@foodSearch');
 
 /**
  * admin page
@@ -51,8 +53,6 @@ Route::middleware(['admin-auth'])->group(function() {
     Route::post('/admin/order/notify', "WEB\admin\FoodOrdersController@foodOrderNotifyUsers");
     Route::get('/admin/order', "WEB\admin\FoodOrdersController@foodOrderIndex");
 });
-
-Route::get('/food', 'WEB\FoodsController@foodShow');
 
 Route::middleware(['auth'])->group(function() {
     Route::get('/profile', 'WEB\ProfilesController@profileShow');

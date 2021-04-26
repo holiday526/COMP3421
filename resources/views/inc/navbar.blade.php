@@ -8,14 +8,7 @@
         <b-collapse id="nav-collapse" is-nav>
             <b-navbar-nav>
                 <b-nav-item href="/food_menu" class="mx-2"><i class="fas fa-utensils mr-1"></i> Menu</b-nav-item>
-                <b-nav-form>
-                    <b-input-group class="mx-2">
-                        <b-form-input placeholder="Search food..."></b-form-input>
-                        <b-input-group-append>
-                            <b-button variant="outline-light"><i class="fas fa-search"></i></b-button>
-                        </b-input-group-append>
-                    </b-input-group>
-                </b-nav-form>
+                <search-bar></search-bar>
             </b-navbar-nav>
 
             <!-- Right aligned nav items -->
