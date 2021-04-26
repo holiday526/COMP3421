@@ -83,6 +83,7 @@ class FoodsController extends Controller
             ->leftJoin('food_categories', 'foods.category_id', '=', 'food_categories.id')
             ->leftJoin('food_types', 'foods.type_id', '=', 'food_types.id')
             ->leftJoin('food_images', 'foods.id', '=', 'food_images.food_id')
+            ->where('foods.deleted_at', '=', null)
             ->where('foods.name', 'like', '%'.$request->word.'%')
             ->orWhere('foods.description', 'like', '%'.$request->word.'%')
             ->orWhere('food_types.name', 'like', '%'.$request->word.'%')

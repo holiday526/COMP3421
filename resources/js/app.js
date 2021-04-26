@@ -40,6 +40,7 @@ import NewOrderToast from "./components/admin/inc/NewOrderToast";
 import OrderUpdate from "./components/inc/OrderUpdate";
 import SearchList from "./components/menu/SearchList";
 import SearchBar from "./components/nav/SearchBar";
+import FoodCard from "./components/menu/FoodCard";
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -60,6 +61,7 @@ const app = new Vue({
         NewOrderToast,
         OrderUpdate,
         SearchList,
-        SearchBar
+        SearchBar,
+        FoodCard
     }
 });
