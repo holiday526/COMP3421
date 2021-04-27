@@ -44,6 +44,12 @@ Route::middleware(['admin-auth'])->group(function() {
     Route::get('/admin/food', 'WEB\admin\FoodsController@foodCreate');
     Route::post('/admin/food', 'WEB\admin\FoodsController@foodStore');
 
+    Route::get('/admin/food_type/show/{food_type_id}', 'WEB\admin\FoodsController@foodTypeShow');
+    Route::get('/admin/food_type/edit/{food_type_id}', 'WEB\admin\FoodsController@foodTypeEdit');
+    Route::post('/admin/food_type/delete', 'WEB\admin\FoodsController@foodTypeDelete');
+    Route::get('/admin/food_type/edit', 'WEB\admin\FoodsController@foodTypeIndex');
+    Route::get('/admin/food_type/list', 'WEB\admin\FoodsController@foodTypeListIndex');
+    Route::post('/admin/food_type/update', 'WEB\admin\FoodsController@foodTypeUpdate');
     Route::get('/admin/food_type', 'WEB\admin\FoodsController@foodTypesCreate');
     Route::post('/admin/food_type', 'WEB\admin\FoodsController@foodTypesStore');
 

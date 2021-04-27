@@ -41,6 +41,8 @@ import OrderUpdate from "./components/inc/OrderUpdate";
 import SearchList from "./components/menu/SearchList";
 import SearchBar from "./components/nav/SearchBar";
 import FoodCard from "./components/menu/FoodCard";
+import FoodTypeEditTable from "./components/admin/food_type/FoodTypeEditTable";
+import FoodTypeEditForm from "./components/admin/food_type/FoodTypeEditForm";
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -62,6 +64,8 @@ const app = new Vue({
         OrderUpdate,
         SearchList,
         SearchBar,
-        FoodCard
+        FoodCard,
+        FoodTypeEditTable,
+        FoodTypeEditForm
     }
 });

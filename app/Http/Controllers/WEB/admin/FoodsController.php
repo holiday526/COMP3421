@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\Food;
+use Illuminate\Validation\ValidationData;
 use Intervention\Image\Facades\Image;
 
 class FoodsController extends Controller
@@ -230,6 +231,91 @@ class FoodsController extends Controller
         return redirect()->back()->with(
             [
                 'message'=>"Food Types $request->name Successfully Created",
+                'variant'=>'success'
+            ]
+        );
+
+    }
+
+    public function foodTypeIndex() {
+        return view('admin.food_type.index');
+    }
+
+    public function foodTypeShow($food_type_id) {
+        $rules = [
+            'food_type_id' => 'required|exists:App\FoodType,id'
+        ];
+
+        $validator = Validator::make(['food_type_id'=>$food_type_id], $rules);
+
+        if ($validator->fails()) {
+            return response(['message'=>$validator->errors()->getMessages()], 403);
+        }
+
+        $burger_type_id = FoodType::where('name', 'Burger')->first()->id;
+
+        if ($food_type_id === $burger_type_id) {
+            return response(['message'=>'cannot edit burger type'], 403);
+        }
+
+        return response(['food_type'=>FoodType::find($food_type_id)], 200);
+    }
+
+    public function foodTypeEdit($food_type_id) {
+        return view('admin.food_type.edit', ['food_type_id'=>$food_type_id]);
+    }
+
+    public function foodTypeListIndex() {
+        return response(['food_types'=>FoodType::all()], 200);
+    }
+
+    public function foodTypeUpdate(Request $request) {
+        $rules = [
+            'id' => 'required|exists:App\FoodType,id',
+            'name' => 'required|string',
+            'description' => 'string',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
+
+        FoodType::where('id', $request->id)->update([
+            'name' => $request->name,
+            'description' => $request->description
+        ]);
+
+        return redirect()->back()->with(
+            [
+                'message'=>"Food type $request->name Successfully Updated",
+                'variant'=>'success'
+            ]
+        );
+
+    }
+
+    public function foodTypeDelete(Request $request) {
+        $rules = [
+            'id' => 'required|exists:App\FoodType,id',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
+
+        if ($request->id === FoodType::where('name', 'Burger')->first()->id) {
+            return redirect()->back()->withErrors($validator);
+        }
+
+        FoodType::where('id', $request->id)->delete();
+
+        return redirect()->back()->with(
+            [
+                'message'=>"Food type $request->name Successfully deleted",
                 'variant'=>'success'
             ]
         );

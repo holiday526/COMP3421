@@ -15,8 +15,19 @@
                     <b-dropdown-item href="/admin/food">Create</b-dropdown-item>
                 </b-nav-item-dropdown>
                 <b-nav-item href="/admin/order">Order</b-nav-item>
-                <b-nav-item href="/admin/food_type">Add Food Type</b-nav-item>
-                <b-nav-item href="/admin/food_category">Add Burger Category</b-nav-item>
+                <b-nav-item-dropdown>
+                    <template #button-content>
+                        Food Type
+                    </template>
+                    <b-dropdown-item href="/admin/food_type/edit">Edit</b-dropdown-item>
+                    <b-dropdown-item href="/admin/food_type">Create</b-dropdown-item>
+                </b-nav-item-dropdown>
+                <b-nav-item-dropdown>
+                    <template #button-content>
+                        Burger Category
+                    </template>
+                    <b-dropdown-item href="/admin/food_category">Create</b-dropdown-item>
+                </b-nav-item-dropdown>
             </b-navbar-nav>
 
             <!-- Right aligned nav items -->
