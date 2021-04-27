@@ -1,6 +1,6 @@
 <template>
     <b-card v-show="show" :img-src="`/img/placeholder/burger.svg`" img-right img-height="250" :border-variant="variant">
-        <b-card-title>Order ID: <span class="text-info">{{ orderId }}</span> <b-button class="ml-4" variant="info">Order Detail</b-button></b-card-title>
+        <b-card-title>Order ID: <span class="text-info">{{ orderId }}</span></b-card-title>
         <b-card-text>
             Total items: <span class="text-info">{{ totalItems }}</span>
         </b-card-text>

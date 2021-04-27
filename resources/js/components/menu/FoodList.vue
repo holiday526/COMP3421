@@ -32,10 +32,10 @@
             <select name="paginator" id="paginator" onchange="location = this.value" class="mr-4">
                 <option v-for="index in paginationGenerator" :key="index" :value="`${locationOnChange}&pagination=${index}`" :selected="index==urlParam.pagination">{{ index }}</option>
             </select>
-            Page:
-            <select name="page_number" id="pageNumber" onchange="location = this.value">
-                <option v-for="index in pagesFormatting" :key="index" :value="`${locationOnChange}&page=${index}`" :selected="index==currentPage">{{ index }}</option>
-            </select>
+<!--            Page:-->
+<!--            <select name="page_number" id="pageNumber" onchange="location = this.value">-->
+<!--                <option v-for="index in pagesFormatting" :key="index" :value="`${locationOnChange}&page=${index}`" :selected="index==currentPage">{{ index }}</option>-->
+<!--            </select>-->
         </div>
 
         <div v-if="!emptyFoodList">
