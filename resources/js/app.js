@@ -43,6 +43,8 @@ import SearchBar from "./components/nav/SearchBar";
 import FoodCard from "./components/menu/FoodCard";
 import FoodTypeEditTable from "./components/admin/food_type/FoodTypeEditTable";
 import FoodTypeEditForm from "./components/admin/food_type/FoodTypeEditForm";
+import FoodCategoryEditTable from "./components/admin/food_category/FoodCategoryEditTable";
+import FoodCategoryEditForm from "./components/admin/food_category/FoodCategoryEditForm";
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -66,6 +68,8 @@ const app = new Vue({
         SearchBar,
         FoodCard,
         FoodTypeEditTable,
-        FoodTypeEditForm
+        FoodTypeEditForm,
+        FoodCategoryEditTable,
+        FoodCategoryEditForm
     }
 });

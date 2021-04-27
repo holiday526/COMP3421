@@ -26,6 +26,7 @@
                     <template #button-content>
                         Burger Category
                     </template>
+                    <b-dropdown-item href="/admin/food_category/edit">Edit</b-dropdown-item>
                     <b-dropdown-item href="/admin/food_category">Create</b-dropdown-item>
                 </b-nav-item-dropdown>
             </b-navbar-nav>

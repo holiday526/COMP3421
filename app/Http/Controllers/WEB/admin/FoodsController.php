@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Food;
 use Illuminate\Validation\ValidationData;
 use Intervention\Image\Facades\Image;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class FoodsController extends Controller
 {
@@ -316,6 +317,90 @@ class FoodsController extends Controller
         return redirect()->back()->with(
             [
                 'message'=>"Food type $request->name Successfully deleted",
+                'variant'=>'success'
+            ]
+        );
+
+    }
+
+    public function foodCategoryList() {
+        return response(['food_categories'=> FoodCategory::all()], 200);
+    }
+
+    public function foodCategoryIndex() {
+        return view('admin.food_category.index');
+    }
+
+    public function foodCategoryShow($food_category_id) {
+        $rules = [
+            'food_category_id' => 'required|exists:App\FoodCategory,id'
+        ];
+
+        $validator = Validator::make(['food_category_id'=>$food_category_id], $rules);
+
+        if($validator->fails()) {
+            return response(['message'=>$validator->errors()->getMessages()],400);
+        }
+
+        return response(['food_category'=>FoodCategory::find($food_category_id)], 200);
+    }
+
+    public function foodCategoryEdit($food_category_id) {
+//        $rules = [
+//            'food_category_id' => 'required|exists:App\FoodCategory,id'
+//        ];
+//
+//        $validator = Validator::make(['food_category_id'=>$food_category_id], $rules);
+//
+//        if ($validator->fails()) {
+//            return response();
+//        }
+
+        return view('admin.food_category.edit', ['food_category_id'=>$food_category_id]);
+    }
+
+    public function foodCategoryUpdate(Request $request) {
+        $rules = [
+            'id' => 'required|exists:App\FoodCategory,id',
+            'name' => 'required|string',
+            'description' => 'string'
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
+
+        FoodCategory::where('id', $request->id)->update([
+            'name' => $request->name,
+            'description' => $request->description
+        ]);
+
+        return redirect()->back()->with(
+            [
+                'message'=>"Food category $request->name Successfully Updated",
+                'variant'=>'success'
+            ]
+        );
+    }
+
+    public function foodCategoryDelete(Request $request) {
+        $rules = [
+            'food_category_id' => 'required|exists:App\FoodCategory,id'
+        ];
+
+        $validator = Validator::make(['food_category_id'=>$request->food_category_id], $rules);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
+
+        FoodCategory::where('id', $request->food_category_id)->delete();
+
+        return redirect()->back()->with(
+            [
+                'message'=>"Food category ID: $request->food_category_id Successfully deleted",
                 'variant'=>'success'
             ]
         );

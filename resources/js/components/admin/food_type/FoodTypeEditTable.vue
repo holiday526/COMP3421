@@ -1,6 +1,5 @@
 <template>
     <div>
-        <b-form-group></b-form-group>
         <b-table
             responsive
             :items="foodTypes"
@@ -26,8 +25,6 @@ export default {
     data: () => {
         return {
             foodTypes: [],
-            filter: "",
-            filterOn: [],
             fields: [
                 {key:'id', label:'ID', sortable: true},
                 {key:'name', label:'name', sortable: true},
