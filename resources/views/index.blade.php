@@ -43,6 +43,7 @@
                             @else
                             :logged-in="false"
                             @endauth
+                            food-id="{{$food->food_id}}"
                             food-name="{{$food->food_name}}"
                             food-description="{{$food->food_description}}"
                             food-price="{{$food->food_price}}"
