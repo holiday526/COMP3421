@@ -34,6 +34,7 @@
                         @endforeach
                     </b-carousel>
                 </div>
+                <h4 class="my-4">Featured Food</h4>
                 <b-card-group class="my-4" deck>
                     @foreach($feature_foods as $food)
                         <food-card
